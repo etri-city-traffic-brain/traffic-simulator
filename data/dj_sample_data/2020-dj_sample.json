@@ -1,0 +1,30 @@
+{
+  "scenario": {
+    "id": "SALT_202009_00940",
+    "host": "127.0.0.1",
+    //"host": "1.245.47.108",
+    "port": "1337",
+    "time": {
+      "begin": 0,
+      "end": 86399
+    },
+    "input": {
+      "fileType": "SALT",
+      "node": "node.xml",
+      "link": "edge.xml",
+      "connection": "connection.xml",
+      "trafficLightSystem": "tss.xml",
+      "route": "dj_sample_mon.rou.xml"
+    },
+    "parameter": {
+      "minCellLength": 30,
+      "vehLength": 5
+    },
+    "output": {
+      "fileDir": "output/2020DJSampleTest/",
+      "period": 1800,
+      "level": "cell",
+      "save": 1
+    }
+  }
+}
