@@ -33,7 +33,8 @@
     * $ tar xvfj boost_1_69_0.tar.bz2
     * $ cd boost_1_69_0
     * $ ./bootstrap.sh --prefix=/usr
-    * $ ./b2 cxxflags=-fPIC cflags=-fPIC link=static -a
+    * $ ./b2 -j 16 cxxflags=-fPIC cflags=-fPIC link=static -a
+      * -j N 옵션: 병렬 빌드 
     * $ sudo ./b2 install
 
 ## CMakeLists.txt 수정
