@@ -61,8 +61,10 @@ namespace libsalt {
         // master's host and port
         string host = SC->getScenarioInfo()->simhost;
         int port = SC->getScenarioInfo()->simport;
+        int interval = SC->getScenarioInfo()->siminterval;
         if (port != 0) {
             VC = new VisClient(SC, host, port);
+            VC->interval = interval;
             VC->start();
         }
         // ===========================================
@@ -158,8 +160,8 @@ namespace libsalt {
 
             // Send visualization data to VisServer
             if (VC != nullptr) {
-                int ratio = 1; // Send every ratio'th data to VisServer
-                if (currentStep % ratio == 0) {
+                int interval = VC->interval; // Send every ratio'th data to VisServer
+                if (currentStep % interval == 0) {
                     VC->sendDataMessageInternal();
                 }
             }

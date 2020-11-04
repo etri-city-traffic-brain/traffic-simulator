@@ -46,6 +46,8 @@ namespace libsalt {
         static vector<string> tokenizeShape(const string& data, const string& dropped_delim = " ", const string& kept_delim = "");
 
     public:
+        int interval = 1;
+
         // Starts asynchronous connection to VisServer
         VisClient(SALT::SimulationController* SC_, std::string& remoteHost_, int remotePort_);
 

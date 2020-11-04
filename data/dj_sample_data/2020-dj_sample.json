@@ -4,6 +4,7 @@
     "host": "127.0.0.1",
     //"host": "1.245.47.108",
     "port": "1337",
+    "interval": "1", // Send data to VisServer every step
     "time": {
       "begin": 0,
       "end": 86399
