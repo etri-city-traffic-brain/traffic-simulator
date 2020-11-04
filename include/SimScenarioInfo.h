@@ -27,6 +27,7 @@ public:
     //VisServer's port
     string simhost = "127.0.0.1";
     int simport = 0;
+    int siminterval = 1;
 
     //Simulation Begin time & End time
     SALTTime simbegin;
