@@ -6,15 +6,15 @@
     * $ yum install cmake3
     * $ alternatives --install /usr/bin/cmake cmake /usr/bin/cmake3 10 --slave /usr/bin/ctest ctest /usr/bin/ctest3 --slave /usr/bin/cpack cpack /usr/bin/cpack --slave /usr/bin/ccmake ccmake /usr/bin/ccmake3 --family cmake
 
+  * 필요시 OpenSSL Development Package 설치
+    * $ sudo apt install libssl-dev   # Ubuntu 20.04 기준
   * 소스 다운로드 및 설치
     * Goto https://cmake.org/download/ and download a tarball (e.g. cmake-3.18.2.tar.gz)
       * $ wget https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.18.2.tar.gz
     * $ tar xvfz    cmake-3.18.2.tar.gz
     * $ cd cmake-3.18.2
     * $ ./bootstrap
-      * 필요시 OpenSSL Development Package 설치
-      * $ sudo apt install libssl-devl   # Ubuntu 20.04 기준
-    * $ make -j8            # 컴파일
+    * $ make -j16            # 병렬 컴파일 (16 쓰레드)
     * $ sudo make install   # 필요 시 설치
     * 설치를 생략한 경우, PATH에 cmake 실행 파일 경로 추가
       * $ export PATH="$PATH:$HOME/cmake-3.18.2/bin"   # 예
@@ -36,6 +36,18 @@
     * $ ./b2 -j 16 cxxflags=-fPIC cflags=-fPIC link=static -a
       * -j N 옵션: 병렬 빌드 
     * $ sudo ./b2 install
+    
+* swig 3.0 이상 설치 필요
+  * ubuntu 기준
+    * $ sudo apt install swig
+
+* Python3 설치 필요
+  * ubuntu 기준
+    * $ sudo apt install python3
+    * $ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+* Python3 관련 도구 및 라이브러리 설치 필요
+  * ubuntu 기준
+    * $ sudo apt-get install python3-setuptools python3-dev
 
 ## CMakeLists.txt 수정
 * $ vi src/CMakeLists.txt
