@@ -73,5 +73,5 @@ def test_funcs():
 
 
 if __name__ == "__main__":
-    salt_scenario = r"/home/mclee/project/traffic-simulator/data/dj_sample_data/2020-dj_sample.json"
+    salt_scenario = r"/home/ubuntu/traffic-simulator/data/dj_sample_data/2020-dj_sample.json"
     test(salt_scenario)
