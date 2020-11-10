@@ -8,7 +8,7 @@ this_file_dir_path = os.path.dirname(os.path.realpath(__file__))
 salt_core_root_dir = os.path.join(this_file_dir_path, "..")
 
 default_conf_path = os.path.join(salt_core_root_dir, "conf", "salt.conf.json")
-default_scenario_path = os.path.join(salt_core_root_dir, "data", "scenario.default.json")
+default_scenario_path = os.path.join(salt_core_root_dir, "data", "salt.scenario.json")
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run Dynamic Simulation")
