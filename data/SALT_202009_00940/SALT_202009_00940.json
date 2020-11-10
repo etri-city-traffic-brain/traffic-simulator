@@ -1,8 +1,8 @@
 {
   "scenario": {
     "id": "SALT_202009_00940",
-    "host": "127.0.0.1",
-    //"host": "1.245.47.108",
+    //"host": "127.0.0.1",
+    "host": "1.245.47.108",
     "port": "1337",
     "interval": "1", // Send data to VisServer every step
     "time": {
@@ -22,7 +22,7 @@
       "vehLength": 5
     },
     "output": {
-      "fileDir": "output/2020DJSampleTest/",
+      "fileDir": "/home/ubuntu/uniq-sim/output/SALT_202009_00940/",
       "period": 1800,
       "level": "cell",
       "save": 1
