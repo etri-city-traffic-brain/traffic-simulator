@@ -128,7 +128,12 @@ namespace libsalt {
     void
     Simulation::step(const int timestep) {
         SALT::SALTTime endStep = (SALT::SALTTime)timestep;
-        SALT::SALTTime currentStep;
+        SALT::SALTTime currentStep = SC->getCurrentStep();
+
+        // cout << "SC->getBeginStep(): " << SC->getBeginStep() << ", SC->getEndStep(): " << SC->getEndStep() << ", currentStep: " << currentStep << endl;
+        if (SC->getEndStep() < currentStep) {
+            return;
+        }
 
         do {
             auto timeStepStart = Clock::now();
