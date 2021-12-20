@@ -225,6 +225,79 @@ namespace libsalt {
         return activationCount;
     }
 
+    std::tuple<float, float, float>
+    Lane::computeWaitingVehicleInfo(const std::string& laneID, int currentStep, int lastSwitchingTime) {
+        LibsaltLane lane = LibsaltLane(laneID);
+        SALT::Link* link = Simulation::getNetworkManager()->findLinkByID(lane.link);
+        int numSections = link->getNumSection();
+        float numWaitingVeh = 0.0f;
+        float avgWaitingTime = 0.0f;
+        float avgWaitingQLength = 0.0f;
+        for(int i = 0; i < numSections; i++){
+            SALT::CellInterface* cell = link->getCellByIndex(i, lane.lane);
+            avgWaitingTime += get<1>(cell->computeWaitingVehicle(currentStep, lastSwitchingTime));
+            avgWaitingQLength += get<2>(cell->computeWaitingVehicle(currentStep, lastSwitchingTime));
+            if(i == numSections-1) {
+                numWaitingVeh += get<0>(cell->computeWaitingVehicle(currentStep, lastSwitchingTime));
+            }
+        }
+
+        return make_tuple(numWaitingVeh, (avgWaitingTime/float(numSections)), (avgWaitingQLength/float(numSections)));
+    }
+
+
+    std::tuple<float, float> Lane::getCurrentWaitingTimeBaseVeh(const std::string& laneID, int currentStep) {
+        LibsaltLane lane = LibsaltLane(laneID);
+        SALT::Link* link = Simulation::getNetworkManager()->findLinkByID(lane.link);
+        int numSections = link->getNumSection();
+        float avgWaitingTime = 0.0f;
+        float sumWaitingTime = 0.0f;
+        for(int i = 0; i < numSections; i++){
+            SALT::CellInterface* cell = link->getCellByIndex(i, lane.lane);
+            avgWaitingTime += get<0>(cell->getVehicleWaitingTimeBaseVeh(currentStep));
+            sumWaitingTime += get<1>(cell->getVehicleWaitingTimeBaseVeh(currentStep));
+        }
+
+        return make_tuple(avgWaitingTime / float(numSections), sumWaitingTime);
+    }
+
+    float Lane::getAverageVehicleWaitingTime(const std::string& laneID, int currentStep, int lastSwitchingTime) {
+        return get<1>(computeWaitingVehicleInfo(laneID, currentStep,lastSwitchingTime));
+    }
+
+    float
+    Lane::getAverageVehicleWaitingQLength(const std::string& laneID, int currentStep, int lastSwitchingTime) {
+        return get<2>(computeWaitingVehicleInfo(laneID, currentStep,lastSwitchingTime));
+    }
+
+    float Lane::genNumWaitingVehicle(const std::string& laneID, int currentStep, int lastSwitchingTime) {
+        return get<0>(computeWaitingVehicleInfo(laneID, currentStep,lastSwitchingTime));
+    }
+
+    int Lane::getStateOfWaitingVehicleOverTLSDuration(const std::string& laneID, int currentStep) {
+        LibsaltLane lane = LibsaltLane(laneID);
+        SALT::Link* link = Simulation::getNetworkManager()->findLinkByID(lane.link);
+        int numSections = link->getNumSection();
+        int stateWaitingOverTLSDuration = 0;
+        for(int i = 0; i < numSections; i++){
+            SALT::CellInterface* cell = link->getCellByIndex(i, lane.lane);
+            auto cellstate = cell->getWaitVehStateOverTLSDuration(currentStep);
+            if(cellstate == 1) {
+                stateWaitingOverTLSDuration = 1;
+                break;
+            }
+        }
+        return stateWaitingOverTLSDuration;
+    }
+
+    float Lane::getCurrentAverageWaitingTimeBaseVehicle(const std::string& laneID, int currentStep) {
+        return get<0>(getCurrentWaitingTimeBaseVeh(laneID, currentStep));
+    }
+
+    float Lane::getCurrentWaitingTimeSumBaseVehicle(const std::string& laneID, int currentStep) {
+        return get<1>(getCurrentWaitingTimeBaseVeh(laneID, currentStep));
+    }
+
 // ===========================================================================
 // Setter Implementation
 // ===========================================================================

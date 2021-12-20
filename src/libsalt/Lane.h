@@ -21,6 +21,9 @@ namespace libsalt {
         // Invalidate standard constructor
         Lane() = delete;
 
+        static std::tuple<float,float,float> computeWaitingVehicleInfo(const std::string& laneID, int currentStep, int lastSwitchingTime);
+        static std::tuple<float,float> getCurrentWaitingTimeBaseVeh(const std::string& laneID, int currentStep);
+
     public:
         // --------------------------------------------------------------
         // Getter
@@ -40,6 +43,13 @@ namespace libsalt {
         static int getCurrentVolume(const std::string& laneID);
         static int getCurrentRoom(const std::string& laneID);
         static int getActivationCount(const std::string& laneID);
+        static float getAverageVehicleWaitingTime(const std::string& laneID, int currentStep, int lastSwitchingTime);
+        static float getAverageVehicleWaitingQLength(const std::string& laneID, int currentStep, int lastSwitchingTime);
+        static float genNumWaitingVehicle(const std::string& laneID, int currentStep, int lastSwitchingTime);
+        static int getStateOfWaitingVehicleOverTLSDuration(const std::string& laneID, int currentStep);
+        static float getCurrentAverageWaitingTimeBaseVehicle(const std::string& laneID, int currentStep);
+        static float getCurrentWaitingTimeSumBaseVehicle(const std::string& laneID, int currentStep);
+
 
         // --------------------------------------------------------------
         // Setter

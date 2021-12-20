@@ -38,6 +38,8 @@ namespace libsalt {
 
 
         static int setTLSByNodeID(std::string _tlsID, TLSLogic* _logic);
+        static void setTLSPhaseVector(int triggertime, std::string _nodeID, std::string _scheduleID, std::vector<std::pair<int,std::string>> _phaseVector);
+        static void setTLSPhaseVector(int triggertime, std::string _nodeID, std::string _scheduleID, int _phaseIndex, std::vector<std::pair<int,std::string>> _phaseVector);
         static void changeTLSPhase(int triggertime, std::string _nodeID, std::string _scheduleID, int _phaseIndex);
 
     private:

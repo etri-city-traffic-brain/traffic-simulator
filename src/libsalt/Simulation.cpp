@@ -205,8 +205,10 @@ namespace libsalt {
         SC->stop();
         SC = nullptr;
 
-        VC->stop();
-        VC = nullptr;
+        if (VC != nullptr) {
+            VC->stop();
+            VC = nullptr;
+        }
     }
 
     int

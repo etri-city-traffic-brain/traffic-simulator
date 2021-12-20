@@ -189,6 +189,24 @@ namespace libsalt {
         return get<0>(computeWaitingVehicleInfo(linkID, currentStep, lastSwitchingTime));
     }
 
+
+    int Link::getStateOfWaitingVehicleOverTLSDuration(const string &linkID, int currentStep) {
+        return Simulation::getNetworkManager()->findLinkByID(linkID)->getStateOfWaitingVehOverTLSDuration(currentStep);
+    }
+
+
+    std::tuple<float, float> Link::getCurrentWaitingTimeBaseVeh(const string &linkID, int currentStep) {
+        return Simulation::getNetworkManager()->findLinkByID(linkID)->getWaitingTimeBaseVeh(currentStep);
+    }
+
+    float Link::getCurrentAverageWaitingTimeBaseVehicle(const string &linkID, int currentStep) {
+        return get<0>(getCurrentWaitingTimeBaseVeh(linkID, currentStep));
+    }
+
+    float Link::getCurrentWaitingTimeSumBaseVehicle(const string &linkID, int currentStep) {
+        return get<1>(getCurrentWaitingTimeBaseVeh(linkID, currentStep));
+    }
+
     LibsaltCell
     Link::getCellByIndex(const std::string& linkID, int section, int lane) {
         return Simulation::getNetworkManager()->findLinkByID(linkID)->getCellByIndex(section, lane);
@@ -291,6 +309,9 @@ namespace libsalt {
     Link::getRightPocket(const std::string& linkID) {
         return Simulation::getNetworkManager()->findLinkByID(linkID)->getMyRightPocket();
     }
+
+
+
 
     // ===========================================================================
     // Setter Implementation

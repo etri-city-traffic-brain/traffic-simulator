@@ -132,6 +132,28 @@ namespace libsalt {
         return get<0>(computeWaitingVehicleInfo(linkID, section, lane, currentStep, lastSwitchingTime));
     }
 
+    std::tuple<float, float>
+    Cell::getCurrentWaitingTimeBaseVeh(const string &linkID, int section, int lane, int currentStep) {
+        return Simulation::getNetworkManager()->findLinkByID(linkID)->getCellByIndex(section, lane)->getVehicleWaitingTimeBaseVeh(currentStep);
+    }
+
+    int Cell::getStateOfWaitingVehicleOverTLSDuration(const string &linkID, int section, int lane, int currentStep) {
+        return Simulation::getNetworkManager()->findLinkByID(linkID)->getCellByIndex(section, lane)->getWaitVehStateOverTLSDuration(currentStep);
+    }
+
+    float
+    Cell::getCurrentAverageWaitingTimeBaseVehicle(const string &linkID, int section, int lane, int currentStep) {
+        return get<0>(getCurrentWaitingTimeBaseVeh(linkID, section, lane, currentStep));
+    }
+
+    float
+    Cell::getCurrentWaitingTimeSumBaseVehicle(const string &linkID, int section, int lane, int currentStep) {
+        return get<1>(getCurrentWaitingTimeBaseVeh(linkID, section, lane, currentStep));
+    }
+
+
+
+
     int Cell::getLength(const std::string &linkID, int section, int lane) {
         return Simulation::getNetworkManager()->findLinkByID(linkID)->getCellByIndex(section, lane)->getMyLength();
     }
@@ -242,6 +264,8 @@ namespace libsalt {
         LibsaltCell cell = LibsaltCell(cellID);
         return Simulation::getNetworkManager()->findLinkByID(cell.link)->getCellByIndex(cell.section, cell.lane)->getMyCurrentReceivingVolume();
     }
+
+
 
 // ===========================================================================
 // Setter Implementation

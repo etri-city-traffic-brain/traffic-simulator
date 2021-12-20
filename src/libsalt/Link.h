@@ -18,6 +18,7 @@ namespace libsalt {
         // Invalidate standard constructor
         Link() = delete;
         static std::tuple<float,float,float> computeWaitingVehicleInfo(const string &linkID, int currentStep, int lastSwitchingTime);
+        static std::tuple<float,float> getCurrentWaitingTimeBaseVeh(const string &linkID, int currentStep);
 
     public:
         // --------------------------------------------------------------
@@ -42,6 +43,9 @@ namespace libsalt {
         static float getAverageVehicleWaitingTime(const std::string& linkID, int currentStep, int lastSwitchingTime);
         static float getAverageVehicleWaitingQLength(const std::string& linkID, int currentStep, int lastSwitchingTime);
         static float getNumWaitingVehicle(const std::string& linkID, int currentStep, int lastSwitchingTime);
+        static int getStateOfWaitingVehicleOverTLSDuration(const std::string& linkID, int currentStep);
+        static float getCurrentAverageWaitingTimeBaseVehicle(const std::string& linkID, int currentStep);
+        static float getCurrentWaitingTimeSumBaseVehicle(const std::string& linkID, int currentStep);
         static float getSumTravelLength(const std::string& linkID);
         static float getSumTravelTime(const std::string& linkID);
 

@@ -118,6 +118,19 @@ namespace libsalt {
         return res;
     }
 
+    void TrafficSignal::setTLSPhaseVector(int triggertime, std::string _nodeID, std::string _scheduleID,
+                                          std::vector<std::pair<int, std::string>> _phaseVector) {
+        getTLSManager()->changeTLSPhaseVector(triggertime, _nodeID, _scheduleID, _phaseVector);
+    }
+
+
+    void
+    TrafficSignal::setTLSPhaseVector(int triggertime, std::string _nodeID, std::string _scheduleID, int _phaseIndex,
+                                     std::vector<std::pair<int, std::string>> _phaseVector) {
+        getTLSManager()->changeTLSPhaseVector(triggertime, _nodeID, _scheduleID, _phaseIndex, _phaseVector);
+    }
+
+
     void libsalt::TrafficSignal::changeTLSPhase(int _triggertime, std::string _nodeID,
                                                 std::string _scheduleID, int _phaseIndex) {
         getTLSManager()->changeTLPhase(_triggertime, _nodeID, _scheduleID, _phaseIndex);
@@ -131,6 +144,9 @@ namespace libsalt {
         return transTODP;
     }
 
+
+
 } // end of namespace libsalt
+
 
 /****************************************************************************/
