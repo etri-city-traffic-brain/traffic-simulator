@@ -24,15 +24,15 @@
   * centos 7 기준
     * $ yum install boost boost-devel boost-build boost-static
 
-  * ubuntu (최신 버전의 boost 설치 방법, salt 컴파일 시 버전이 1.70 이상이면 에러 발생)
+  * ubuntu (최신 버전의 boost 설치 방법, salt 컴파일 시 버전이 1.79 이상이면 에러 발생)
     * $ sudo add-apt-repository ppa:boost-latest/ppa
     * $ sudo apt-get update
     * $ sudo apt-get install libboost-all-dev
 
-  * 소스 다운로드 및 설치 : ubuntu & centos (salt는 boost 1.70 이하 버전 필요)
-    * $ wget -O boost_1_69_0.tar.bz2 https://sourceforge.net/projects/boost/files/boost/1.69.0/boost_1_69_0.tar.bz2/download
-    * $ tar xvfj boost_1_69_0.tar.bz2
-    * $ cd boost_1_69_0
+  * 소스 다운로드 및 설치 : ubuntu & centos (salt는 boost 1.78 이하 버전 필요)(현재 라이브러리는 boost 1.74 기준으로 빌드됨) 
+    * $ wget -O boost_1_74_0.tar.bz2 https://boostorg.jfrog.io/artifactory/main/release/1.74.0/source/boost_1_74_0.tar.bz2
+    * $ tar xvfj boost_1_74_0.tar.bz2
+    * $ cd boost_1_74_0
     * $ ./bootstrap.sh --prefix=/usr
     * $ ./b2 -j 16 cxxflags=-fPIC cflags=-fPIC link=static -a
       * -j N 옵션: 병렬 빌드 
@@ -43,7 +43,7 @@
     * $ sudo apt install swig
 
 * Python3 설치 필요
-  * ubuntu 기준
+  * ubuntu 기준 (현재 라이브러리는 3.8 기준으로 빌드됨) 
     * $ sudo apt install python3
     * $ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
     
