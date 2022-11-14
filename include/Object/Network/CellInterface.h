@@ -14,6 +14,7 @@
 #include <string>
 #include <tuple>
 #include <Object/Output/OutputWriter.h>
+#include <Object/TrafficSignal/TrafficSignalSchedule.h>
 
 
 namespace SALT{
@@ -204,7 +205,13 @@ public:
 	int getNumVehWaited() {  return myNumWaitingVehicle;  };
 	float getAverageVehicleWaitingTime() {  return myAverageVehWaitingTime;  };
     float getAverageVehicleWaitingQLength() {  return myAverageVehWaitingQLength;  };
+    tuple<float,float> getVehicleWaitingTimeBaseVeh(SALTTime currentStep);
+//    float getVehicleWaitingTimeBaseVehForLink() {  return myVehWaitingTimeBaseVehForLink;  };
+    int getWaitVehStateOverTLSDuration(SALTTime currentStep);
 	tuple<float,float,float> computeWaitingVehicle(SALTTime currentStep, SALTTime lastSwitchingTime);
+    void computeWaitingTimeBaseVehicle(SALTTime currentStep);
+
+
 
 	int getNumVehicles();
 	std::vector<std::string> getVehicles();
@@ -283,9 +290,13 @@ public:
 	int myNumWaitingVehicle = 0;
 	float myAverageVehWaitingTime = 0.0f;
 	float myAverageVehWaitingQLength = 0.0f;
+	float myAverageVehWaitingTimeBaseVeh = 0.0f;
+	float myVehWaitingTimeBaseVehForLink = 0.0f;
+	float myVehWaitingTimeSumBaseVeh = 0.0f;
+	int myWaitVehOverTLSDuration = 0;
 
 
-	// (variable) queue
+        // (variable) queue
 	//	list<VehicleInterface*> myVehicleQ;
 	//	 tuple<veh, enterTime(:=the time when the vehicle has enters)
 	//					,expectedLeavingTime(:=time when veh can leave)>
@@ -309,6 +320,7 @@ public:
 	map<string, tuple<SALTTime,SALTTime, SALTTime>> myVehiclePassingInfo;
 	// map[veh] =  <entered time, time to start waiting, leaved time>
 //	map<VehicleInterface*, tuple<SALTTime,SALTTime, SALTTime>> myVehiclePassingInfo;
+    map<string, Length> myVehicleLenInfo;
 
 
 };

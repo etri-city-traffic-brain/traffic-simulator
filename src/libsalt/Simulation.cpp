@@ -202,12 +202,16 @@ namespace libsalt {
         auto elapsedTime = chrono::duration_cast<std::chrono::seconds>(timeEnd - timeStart).count();
         std::cout << "Elapsed Time: " << elapsedTime << " seconds" << std::endl;
 
-        SC->stop();
+//        SC->stop();
+        delete SC;
         SC = nullptr;
 
+
         if (VC != nullptr) {
-            VC->stop();
+//            VC->stop();
+            delete VC;
             VC = nullptr;
+
         }
     }
 

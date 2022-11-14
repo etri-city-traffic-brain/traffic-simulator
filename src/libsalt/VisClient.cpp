@@ -1,5 +1,5 @@
 #include <iostream>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/smart_ptr.hpp>
 #include <boost/asio.hpp>
 #include <boost/thread/scoped_thread.hpp>
@@ -124,7 +124,7 @@ namespace libsalt {
 
             } else if (MSG_STOP == header->type) {
                 // std::cout << __FUNCTION__ << "() Received STOP message, type=" << header->type<< std::endl;
-                cout << "[StopMsg] timestamp=" << timestamp << ", headerType=" << header->type << ", bodySize=" << bodySize << std::endl;
+                cout << "[StopMsg] timestamp=" << timestamp << ", bodySize=" << bodySize << std::endl;
 
                 // Stop simulation
                 //boost::thread th1 = boost::thread(boost::bind(&VisClient::stopSimulation, &io));
@@ -222,7 +222,7 @@ namespace libsalt {
             msg.header.bodySize = sizeof(msg.simulationId);
 
             // std::cout << "[InitMsg] timestamp=" << msg.header.timestamp << ", simulationId=[" << msg.simulationId << "]" << std::endl;
-            std::cout << "[InitMsg] timestamp=" << msg.header.timestamp << ", headerType=" << msg.header.type << ", simulationId=[" << SC->getSimID() << "]" << std::endl;
+            std::cout << "[InitMsg] timestamp=" << msg.header.timestamp << ", simulationId=[" << SC->getSimID() << "]" << std::endl;
 
             std::vector<boost::asio::const_buffer> buffers;
             buffers.push_back(boost::asio::buffer(&msg, sizeof(MsgHeader) + msg.header.bodySize));
@@ -518,9 +518,7 @@ namespace libsalt {
 
                 msg.header.bodySize = msgSize - sizeof(MsgHeader);
 
-                msg.header.type = MSG_DATA;
-
-                std::cout << "[DataMsg] roadType=" << roadType << ", timestamp=" << msg.header.timestamp << ", headerType=" << msg.header.type
+                std::cout << "[DataMsg] roadType=" << roadType << ", timestamp=" << msg.header.timestamp
                           << ", numRoads=" << msg.numRoads << ", msgSize=" << msgSize << ", headerSize=" << sizeof(MsgHeader) << ", bodySize=" << msg.header.bodySize << std::endl;
 
                 std::vector<boost::asio::const_buffer> buffers;
@@ -568,7 +566,7 @@ namespace libsalt {
 
                     // std::cout << "msg.size=" << sizeof(msg) << ", header.size=" << sizeof(msg.header) << ", header.type.size=" << sizeof(msg.header.type) << ", header.timestamp.size=" << sizeof(msg.header.timestamp) << ", msg.status.size=" << sizeof(msg.status) << ", msg.progress.size=" << sizeof(msg.progress) << std::endl;
 
-                    std::cout << "[StatusMsg] timestamp=" << msg.header.timestamp << ", headerType=" << msg.header.type << ", status=" << msg.status
+                    std::cout << "[StatusMsg] timestamp=" << msg.header.timestamp << ", status=" << msg.status
                               << ", progress=" << msg.progress << std::endl;
 
                     std::vector<boost::asio::const_buffer> buffers;
@@ -626,7 +624,7 @@ namespace libsalt {
 
         // std::cout << "msg.size=" << sizeof(msg) << ", header.size=" << sizeof(msg.header) << ", header.type.size=" << sizeof(msg.header.type) << ", header.timestamp.size=" << sizeof(msg.header.timestamp) << ", msg.status.size=" << sizeof(msg.status) << ", msg.progress.size=" << sizeof(msg.progress) << std::endl;
 
-        std::cout << "[StatusMsg] timestamp=" << msg.header.timestamp << ", headerType=" << msg.header.type << ", status=" << msg.status
+        std::cout << "[StatusMsg] timestamp=" << msg.header.timestamp << ", status=" << msg.status
                   << ", progress=" << msg.progress << std::endl;
 
         std::vector<boost::asio::const_buffer> buffers;

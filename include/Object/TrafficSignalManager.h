@@ -32,6 +32,10 @@ namespace SALT{
         Result build(SimScenarioInfo* scenario);
         Result build(string const& _signal_file, const string& _input_type);
 
+        void setMyInitTime(SALTTime initTime) {
+            this->mySimBeginTime = initTime;
+        }
+
         // @brief: after parsing and constructing each TrafficSignal instance, register its info to other network elements
         Result finishBuildingTrafficSignal();
 
@@ -67,7 +71,9 @@ namespace SALT{
 
         // @libsalt changing schedule or phase of target Simulation Traffic Signal
         void changeTLScheduleByNodeID(SALTTime triggertime, const string& _nodeID);
-        void changeTLPhase(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, int _phaseIndes);
+        void changeTLSPhaseVector(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, std::vector<std::pair<SALTTime,std::string>> _phasevector);
+        void changeTLSPhaseVector(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, int _phaseIndex, std::vector<std::pair<SALTTime,std::string>> _phasevector);
+        void changeTLPhase(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, int _phaseIndex);
 
         // @libsalt set todplan, schedule or phase of target Simulation Traffic Signal (Not Dynamical Changing, just set the information before simulation)
         Result setOPTTrafficSignalScheduleByNodeID(const string &_nodeID, SALTTime todkey, const string &_scheduleID, SALTTime _offset, std::vector<std::pair<SALTTime,std::string>> _phasevector);
@@ -83,7 +89,7 @@ namespace SALT{
         // @libsalt
         TrafficSignal* _getOPTTrafficSignalByNodeID(const string& _nodeID);
 
-
+        SALTTime mySimBeginTime;
 
     };
 

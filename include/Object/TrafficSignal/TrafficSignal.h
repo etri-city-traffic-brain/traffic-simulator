@@ -28,6 +28,11 @@ namespace SALT{
         void setMyNode(Node* myNode = NULL) {
             this->myNode = myNode;
         }
+
+        void setMyInitTime(SALTTime initTime) {
+            this->mySimBeginTime = initTime;
+        }
+
         void insertSchedule(std::string id, TrafficSignalSchedule* schedule);
         // plan := (startingTime, schedule)
         void insertPlan(std::string _startTime, std::string scheduleID);
@@ -80,8 +85,14 @@ namespace SALT{
         void changeTLSchedule(SALTTime triggerTime);
 
         //@libsalt changing current TL Phase to given TL Phase at given time step
+        void tryOPTUpdate(SALTTime currentTime);
+        void executeUpdateOPTPhase(SALTTime updateTime);
         void executeUpdateOPTPhase(SALTTime triggerTime, int _phaseIndex);   //to need modify the detailed process
         void changeTLPhase(SALTTime triggerTime, const string& _scheduleID, int _phaseIndex);
+
+        //@libsal changing current TL Phases to given TL PhaseVector at given time step
+        void changeTLPhaseVector(SALTTime triggerTime, const string& _scheduleID, std::vector<std::pair<SALTTime,std::string>> _newphasevector);
+        void changeTLPhaseVector(SALTTime triggerTime, const string& _scheduleID, int _phaseIndex, std::vector<std::pair<SALTTime,std::string>> _newphasevector);
 
 
 
@@ -90,6 +101,7 @@ namespace SALT{
         Node* myNode=NULL;
         // TODO - group concept is null implemented currently
 //	std::set<TrafficSignal*>* myGroup=NULL;
+        SALTTime mySimBeginTime;
 
         // Time of Day Plan
         std::map<std::string, TrafficSignalSchedule*> myScheduleMap; // (schedule name, schedule itself)

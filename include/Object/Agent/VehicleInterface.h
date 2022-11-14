@@ -11,6 +11,7 @@
 #include <utils/config.h>
 #include <iostream>
 #include <list>
+#include <map>
 #include <string>
 #include <utility>
 
@@ -79,6 +80,8 @@ public:
 		this->myLinkIndex = myLinkIndex;
 	}
 
+	void appendMyCellIDMap(int curLinkIndex);
+
 	// utility
 	string print(void);
 	string getStatusString(void);
@@ -119,6 +122,15 @@ public:
 		this->myNextValidCell = _next;
 	}
 
+    // passing information
+    void recordEntering(tuple<SALTTime,SALTTime,SALTTime>tEnterTuple);
+    void recordWaiting(tuple<SALTTime,SALTTime,SALTTime>tWaitTuple);
+    void recordLeaving(tuple<SALTTime,SALTTime,SALTTime>tLeaveTuple);
+    void managePassingInfo();
+//    void clearPassingInfo(SALTTime currentStep, int periodLength);
+
+    tuple<float,float> computeWaiting(SALTTime curStep);
+
 protected:
 	//	(constant) fixed values during simulation
 	//public:
@@ -157,6 +169,9 @@ protected:
 //	tuple<CellInterface*, CellInterface*> myNextValidCellCache; // <current cell, next valid cell>
 	CellInterface* myCurrentCell=nullptr;
 	CellInterface* myNextValidCell=nullptr;
+
+	map<int,map<int,tuple<SALTTime,SALTTime,SALTTime>>> myPassingInfo;
+    // map[link_index][cell_index] = <entered time, time to start waiting, leaved time>
 };
 ostream& operator << (ostream& strm, VehicleInterface& obj);
 }

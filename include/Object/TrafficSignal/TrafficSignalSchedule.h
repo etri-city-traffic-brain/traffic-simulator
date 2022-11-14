@@ -37,6 +37,11 @@ namespace SALT{
         SALTTime getMyOffset() {  return myOffset;  }
         std::vector<std::pair<SALTTime,std::string>> getMyPhaseVector() {  return myPhaseVector;  }
 
+        SALTTime getMyPeriod() {  return myPeriod;  }
+
+        void swapOPTMyPhaseVector(std::vector<std::pair<SALTTime,std::string>> _newphasevector);
+        void updateOPTPhaseAfterSwap();
+
         bool validate() const;
 
         string print();

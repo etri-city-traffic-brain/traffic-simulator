@@ -21,7 +21,7 @@ class NetworkManager;
 class OutputWriter{
 public:
 	OutputWriter(SimScenarioInfo *scenario, NetworkManager* NM);
-	~OutputWriter();
+	virtual ~OutputWriter();
 	void setup();
 	// void initAnalysisTarget(string analysisTargetFile="");
 
@@ -31,6 +31,7 @@ public:
     void computePeriodicResultV3(SALTTime curTimeStep);
 	//
 	void fillPeriodicResultBuffer(SALTTime tPeriodStart, SALTTime tPeriodEnd);
+	void fillPeriodicResultBufferV3(SALTTime tPeriodStart, SALTTime tPeriodEnd);
 
 	void writePeriodicResult();
 
@@ -78,7 +79,8 @@ private:
 	string myPeriodicFileFullPath="";
 
 	// (variable)
-	string myPeriodicOutputHeader = "intervalbegin,intervalend,roadID,VehPassed,AverageSpeed,AverageDensity,WaitingQLength,WaitingTime,SumTravelLength,SumTravelTime\n";
+//	string myPeriodicOutputHeader = "intervalbegin,intervalend,roadID,VehPassed,AverageSpeed,AverageDensity,WaitingQLength,WaitingTime,SumTravelLength,SumTravelTime\n";    // for V1 & V2
+	string myPeriodicOutputHeader = "intervalbegin,intervalend,roadID,VehPassed,AverageSpeed,AverageDensity,WaitingQLength,WaitingTime,SumTravelLength,SumTravelTime\n";    // for V3
 	string myPeriodicOutputBuffer="";
 
 	std::ofstream* myProgressStatusFileStream=NULL;

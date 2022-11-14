@@ -11,6 +11,7 @@
 #include <utils/config.h>
 #include <list>
 #include <map>
+#include <set>
 
 
 namespace SALT{
@@ -103,10 +104,17 @@ public:
 		return myCellMap;
 	}
 
+	// passing information
+	void recordVehicleEntering(VehicleInterface* veh,SALTTime tEnter);
+	void recordVehicleLeaving(VehicleInterface* veh,SALTTime tLeave);
+	void clearVehiclePassingInfo(SALTTime currentStep, int periodLength);
+
 
 	void computePeriodicValue();
+	void computePeriodicValueV3(SALTTime currentStep, int periodLength);
 	void computeSpeed();
 	void computeSpeedV2();
+	void computeSpeedV2(SALTTime currentStep, int periodLength);
 	void computeVehicleCountAndDensity();
 	void computePassed();
 	void computeWait();
@@ -114,9 +122,8 @@ public:
 	//@return tuple(NumOfWaitingVehicles, AverageVehicleWaitingTime, AverageVehicleWaitingQLength)
 	tuple<float,float,float> computeVehWait(SALTTime currentStep, SALTTime lastSwitchingTime);
 
-	float getAverageDensity() const {
-		return myAverageDensity;
-	}
+	int getStateOfWaitingVehOverTLSDuration(SALTTime currentStep);
+	tuple<float,float> getWaitingTimeBaseVeh(SALTTime currentStep);
 
 	void setAverageDensity(float myAverageDensity = 0.0f) {
 		this->myAverageDensity = myAverageDensity;
@@ -154,35 +161,35 @@ public:
 		this->mySumPassed = mySumPassingCount;
 	}
 
-//	float getNumOfWaitingVehicle() const {
-//	    return myNumWaitingVehicle;
-//	}
-//
-//	void setNumOfWaitingVehicle(float myNumWaitingVehicle = 0.0f) {
-//	    this->myNumWaitingVehicle = myNumWaitingVehicle;
-//	}
-//
-//	float getAverageVehicleWaitingTime() const {
-//	    return myAverageVehWaitingTime;
-//	}
-//
-//	void setAverageVehicleWaitingTime(float myAverageVehWatingTime = 0.0f) {
-//	    this->myAverageVehWaitingTime = myAverageVehWatingTime;
-//	}
-//
-//	float getAverageVehicleWaitingQLength() const {
-//	    return myAverageVehWaitingLength;
-//	}
-//
-//	void setAverageVehicleWaitingQLength(float myAverageVehWaitingQLength = 0.0f) {
-//	    this->myAverageVehWaitingLength = myAverageVehWaitingQLength;
-//	}
+	float getNumOfWaitingVehicle() const {
+	    return myNumWaitingVehicle;
+	}
+
+	void setNumOfWaitingVehicle(float myNumWaitingVehicle = 0.0f) {
+	    this->myNumWaitingVehicle = myNumWaitingVehicle;
+	}
+
+	float getAverageVehicleWaitingTime() const {
+	    return myAverageVehWaitingTime;
+	}
+
+	void setAverageVehicleWaitingTime(float myAverageVehWatingTime = 0.0f) {
+	    this->myAverageVehWaitingTime = myAverageVehWatingTime;
+	}
+
+	float getAverageVehicleWaitingQLength() const {
+	    return myAverageVehWaitingLength;
+	}
+
+	void setAverageVehicleWaitingQLength(float myAverageVehWaitingQLength = 0.0f) {
+	    this->myAverageVehWaitingLength = myAverageVehWaitingQLength;
+	}
 
 	//	float getAverageSpeed() const { return myAverageSpeed; }
 //
 ////	float getSumNumVehs() const { return myObservedVehCount; }
 ////	float getAverageNumVehs() const { return myAverageNumVehs; }
-//	float getAverageDensity() const { return myAverageDensity; }
+	float getAverageDensity() const { return myAverageDensity; }
 //	float getSumPassingCount() const  { return mySumPassingCount; }
 //
 //	float getSumWaitingQLength() const { return myObservedWaitingQLength; }
@@ -235,6 +242,9 @@ private:
 	// lane : rightmost->leftmost / section : upstream->downstream
 	map<int,map<int,CellInterface*>> myCellMap;
 
+	// map[veh id] =  <entered time, leaved time>
+	map<string, tuple<SALTTime,SALTTime>> myVehiclePassingInfo;
+
 
 //	list<VehicleInterface*> myOnVehicleList;
 
@@ -246,9 +256,9 @@ private:
 	float myAverageWaitingTime = 0.0f;
 
 //	//@libsalt wating vehicle information
-//	float myNumWaitingVehicle = 0.0f;
-//	float myAverageVehWaitingTime = 0.0f;
-//	float myAverageVehWaitingLength = 0.0f;
+	float myNumWaitingVehicle = 0.0f;
+	float myAverageVehWaitingTime = 0.0f;
+	float myAverageVehWaitingLength = 0.0f;
 
 	// speed version 2
 	float mySumTravelLength = 0;

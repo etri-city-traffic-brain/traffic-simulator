@@ -20,8 +20,10 @@ namespace libsalt {
         int remotePort;
         VisClientState status = VisClientState::FINISHED;
 
-        boost::asio::io_service io;
-        boost::asio::io_service::strand strand;
+//        boost::asio::io_service io;
+//        boost::asio::io_service::strand strand;
+        boost::asio::io_context io;
+        boost::asio::io_context::strand strand;
         boost::scoped_ptr<boost::thread> io_thd;
         boost::asio::ip::tcp::socket socket;
 
@@ -63,8 +65,8 @@ namespace libsalt {
             }
 
             // io_service를 main thread 로부터 분리하기 위해서 별도의 thread 생성
-            io_thd.reset(new boost::thread(boost::bind(&boost::asio::io_service::run, boost::ref(io))));
-            //io_thd.reset(new boost::thread(boost::bind(&boost::asio::io_context::run, boost::ref(io))));
+//            io_thd.reset(new boost::thread(boost::bind(&boost::asio::io_service::run, boost::ref(io))));
+            io_thd.reset(new boost::thread(boost::bind(&boost::asio::io_context::run, boost::ref(io))));
 
             //boost::thread t(boost::bind(&boost::asio::io_context::run, &io));
             //th_service = boost::bind(&boost::asio::io_service::run, &service);

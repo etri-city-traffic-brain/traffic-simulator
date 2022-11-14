@@ -39,7 +39,7 @@ public:
 	// core function
 	Result build(string const& _node_file, string const& _link_file, string const& _connection_file, string const& _input_type="SALT");
 
-	~NetworkManager();
+	virtual ~NetworkManager();
 
 public:
     void clear();
