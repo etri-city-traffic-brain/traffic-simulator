@@ -1,0 +1,27 @@
+{
+  "scenario": {
+    "id": "2022-dj_doan_test",
+    "time": {
+      "begin": 25200,
+      "end": 32400
+    },
+    "input": {
+      "fileType": "SALT",
+      "node": "2022DJDoan/node.xml",
+      "link": "2022DJDoan/edge.xml",
+      "connection": "2022DJDoan/connection.xml",
+      "trafficLightSystem": "2022DJDoan/tss.xml",
+      "route": "routes/doan.rou.xml"
+    },
+    "parameter": {
+      "minCellLength": 30,
+      "vehLength": 5
+    },
+    "output": {
+      "fileDir": "output/2022DJDoan/",
+      "period": 180,
+      "level": "link",
+      "save": 1
+    }
+  }
+}
