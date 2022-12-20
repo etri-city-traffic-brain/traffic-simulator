@@ -56,32 +56,34 @@
 * 튜토리얼: https://www.tuwlab.com/ece/27234
 * 컴파일할 소스파일, 링크할 헤더파일, 타겟 묶어주기 등
 
-## cmake 수행 -> Makefile 생성
+## 소스 컴파일
+### cmake 수행 -> Makefile 생성
 * $ cd src; cmake CMakeLists.txt
-### 또는
+#### 또는
 * $ mkdir build; cd build; cmake ../src
 
-## compile sources -> make binaries
+### compile sources -> make binaries
 * $ make libsalt  # cmake 버전이 낮은 경우, make _libsalt 수행 (underscore('_') 문자 필요)
-### 또는
+#### 또는
 * $ make all
-### 또는
+#### 또는
 * $ make
 
-## cmake & compile source 한 번에 수행 (권장)
+### cmake & compile source 한 번에 수행 (권장)
 * $ ./c.sh 수행
 
 # traffic-simulator 실행
-### 파이썬 스크립트 작성
+## 파이썬 스크립트 작성
 * $ cd test/libsalt
 * 파일 편집: test_*.sh, test_*.py
   * .sh 파일: PYTHONPATH를 로컬 환경에 맞게 수정
-  * .py 파일: salt_scenario 파일 위치를 로컬 환경에 맞게 수정
+  * .py 파일: uniq_salt_scenario 파일 위치를 로컬 환경에 맞게 수정
 * 시험 수행
   * $ sh test_simulation.sh     # 예
+  * 시험 수행 전, 필요 시, uniq_salt_scenario 파일 내 시뮬레이션 입력 데이터 파일 확인
 
 # 시험용 TCP 서버(VisServer) 컴파일 및 실행
-### 컴파일
+## 컴파일
 * $ sh c.sh
-### 실행
+## 실행
 * $ build/VisServer.out
