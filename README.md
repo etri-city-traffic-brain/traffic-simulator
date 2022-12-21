@@ -73,14 +73,22 @@
 * $ ./c.sh 수행
 
 # traffic-simulator 실행
-## 파이썬 스크립트 작성
+## 파이썬 스크립트 작성 및 수행
+### 테스트용 파일 참조하여 작성
 * $ cd test/libsalt
 * 파일 편집: test_*.sh, test_*.py
   * .sh 파일: PYTHONPATH를 로컬 환경에 맞게 수정
   * .py 파일: uniq_salt_scenario 파일 위치를 로컬 환경에 맞게 수정
 * 시험 수행
   * $ sh test_simulation.sh     # 예
-  * 시험 수행 전, 필요 시, uniq_salt_scenario 파일 내 시뮬레이션 입력 데이터 파일 확인
+  * 시험 수행 전, 필요 시, uniq_salt_scenario 파일 내 시뮬레이션 입력 데이터 파일 확인 (위치, 파일존재 여부 등)
+### 시뮬레이션 수행용 디폴트 스크립트 사용 (권장)
+* $ cd script
+* 파일 편집
+  * default.sh 파일: PYTHONPATH를 로컬 환경에 맞게 수정하고, -s 옵션 뒤에 시나리오 파일 위치를 로컬 환경에 맞게 수정
+* 시험 수행
+  * $ sh default.sh
+  * 시험 수행 전, 필요 시, 시나리오 파일 내 시뮬레이션 입력 데이터 파일 확인 (위치, 파일존재 여부 등)
 
 # 시험용 TCP 서버(VisServer) 컴파일 및 실행
 ## 컴파일
