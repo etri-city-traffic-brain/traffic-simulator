@@ -65,6 +65,10 @@ public:
 	// @brief: construct ordered connection list after all registerConnectionOrder functions needed are called
 	void constructOrderedConnectionList();
 
+	const std::set<Connection*>& getMyConnectionSet() const {
+	    return myConnectionSet;
+	}
+
 	bool isFromOtherWorker() const {
 		return myFromOtherWorker;
 	}
