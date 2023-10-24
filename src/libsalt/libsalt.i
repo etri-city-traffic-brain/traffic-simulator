@@ -23,11 +23,11 @@ def hasGUI():
 def close():
     simulation.close()
 
-def start(args):
-    simulation.load(args)
+def start(args, outdirprefix=""):
+    simulation.load(args, outdirprefix)
 
-def load(args):
-    simulation.load(args)
+def load(args, outdirprefix=""):
+    simulation.load(args, outdirprefix)
 
 def simulationStep(step=0):
     simulation.step(step)

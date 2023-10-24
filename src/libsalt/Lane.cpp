@@ -95,13 +95,10 @@ namespace libsalt {
         LibsaltLane lane = LibsaltLane(laneID);
         SALT::Link* link = Simulation::getNetworkManager()->findLinkByID(lane.link);
         int numSections = link->getNumSection();
+        int lastSectionIdx = numSections-1;
+        SALT::CellInterface* cell = link->getCellByIndex(lastSectionIdx, lane.lane);
 
-        int numVehPassed = 0;
-        for (int i = 0; i < numSections; i++) {
-            SALT::CellInterface* cell = link->getCellByIndex(i, lane.lane);
-            numVehPassed += cell->getNumVehPassed();
-        }
-        return numVehPassed;
+        return cell->getNumVehPassed();
     }
 
     float

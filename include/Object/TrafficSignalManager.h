@@ -62,6 +62,8 @@ namespace SALT{
         int getOPTTrafficSignalIDCount();
         TrafficSignal* getOPTTrafficSignalByNodeID(const string& _nodeID);
         vector<string> getOPTTrafficSignalConnectedLinkIDs(const string& _nodeID);
+        vector<string> getOPTTrafficSignalConnectedLinkIDsCheckExceptable(const string& _nodeID);
+        vector<string> getOPTTrafficSignalConnectedLinkIDsCheckExceptableWTOMultiConnection(const string& _nodeID);
         TrafficSignalSchedule* getCurrentOPTTrafficSignalScheduleByNodeID(const string& _nodeID);
         vector<string> getOPTTrafficSignalScheduleIDs(const string& _nodeID);
         string getCurrentOPTTrafficSignalScheduleID(const string& _nodeID);
@@ -73,6 +75,7 @@ namespace SALT{
         void changeTLScheduleByNodeID(SALTTime triggertime, const string& _nodeID);
         void changeTLSPhaseVector(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, std::vector<std::pair<SALTTime,std::string>> _phasevector);
         void changeTLSPhaseVector(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, int _phaseIndex, std::vector<std::pair<SALTTime,std::string>> _phasevector);
+        void changeTLSPhaseVectorInStepwise(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, std::vector<std::pair<SALTTime,std::string>> _phasevector);
         void changeTLPhase(SALTTime triggertime, const string &_nodeID, const string &_scheduleID, int _phaseIndex);
 
         // @libsalt set todplan, schedule or phase of target Simulation Traffic Signal (Not Dynamical Changing, just set the information before simulation)

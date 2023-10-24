@@ -27,6 +27,8 @@ namespace libsalt {
         static int getTLSIDCount();
         static TLSLogic* getTLSByNodeID(std::string _tlsID);
         static std::vector<std::string> getTLSConnectedLinkID(std::string _tlsID);
+        static std::vector<std::string> getTLSConnectedLinkIDsCheckExceptable(std::string _tlsID);
+        static std::vector<std::string> getTLSConnectedLinkIDsCheckExceptableWTOMultiConnection(std::string _tlsID);
         static std::vector<std::string> getTLSScheduleIDsByNodeID(std::string _tlsID);
         static std::string getCurrentTLSScheduleIDByNodeID(std::string _tlsID);
         static TLSSchedule* getCurrentTLSScheduleByNodeID(std::string _tlsID);
@@ -41,6 +43,7 @@ namespace libsalt {
         static void setTLSPhaseVector(int triggertime, std::string _nodeID, std::string _scheduleID, std::vector<std::pair<int,std::string>> _phaseVector);
         static void setTLSPhaseVector(int triggertime, std::string _nodeID, std::string _scheduleID, int _phaseIndex, std::vector<std::pair<int,std::string>> _phaseVector);
         static void changeTLSPhase(int triggertime, std::string _nodeID, std::string _scheduleID, int _phaseIndex);
+        static void changeTLSPhaseVectorInStepwise(int triggertime, std::string _nodeID, std::string _scheduleID, std::vector<std::pair<int,std::string>> _phaseVector);
 
     private:
         static SALT::TrafficSignalManager* getTLSManager();

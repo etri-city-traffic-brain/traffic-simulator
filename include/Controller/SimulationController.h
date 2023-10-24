@@ -38,6 +38,8 @@ public:
 
 	// @brief: read configuration file and load simulation env and agent
 	Result configureSimulation(string scenarioFile, string partitionID="");
+	Result configureSimulationWithOutDirPrefix(string scenarioFile, string outdirPrefix);
+
 
 private:
 	// @brief: execute to read configuration file and load simulation env and agent
