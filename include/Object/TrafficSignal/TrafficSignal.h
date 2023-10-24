@@ -10,6 +10,7 @@
 
 #include <utils/config.h>
 #include <map>
+#include <set>
 #include <string>
 
 
@@ -79,6 +80,9 @@ namespace SALT{
         std::map<SALTTime, TrafficSignalSchedule*> getOPTTrafficSignalTODPlan() {  return myTODPlan;  }
         SALTTime getOPTTrafficSignalLastPhaseSwitchingTime() const {  return myLastPhaseSwitchTime;  }
         std::vector<std::string> getOPTTrafficSignalConnectedLinkIDs();
+        vector<string> getOPTTrafficSignalConnectedLinkIDsCheckExceptable();
+        vector<string> getOPTTrafficSignalConnectedLinkIDsCheckExceptableWTOMultiConnection();
+        set<Link*> _getPreviousConnectedLinkIDsOfExceptableLink(Link* _exceptablelink);
 
         //@libsalt changing current TL Schedule to Next TL Schedule at given time step
         // TODO - @brief need to update the process to change the target schedule with considering TOD & changing offset
@@ -93,6 +97,7 @@ namespace SALT{
         //@libsal changing current TL Phases to given TL PhaseVector at given time step
         void changeTLPhaseVector(SALTTime triggerTime, const string& _scheduleID, std::vector<std::pair<SALTTime,std::string>> _newphasevector);
         void changeTLPhaseVector(SALTTime triggerTime, const string& _scheduleID, int _phaseIndex, std::vector<std::pair<SALTTime,std::string>> _newphasevector);
+        void changeTLPhaseVectorInStepwise(SALTTime triggerTime, const string& _scheduleID, std::vector<std::pair<SALTTime,std::string>> _newphasevector);
 
 
 
