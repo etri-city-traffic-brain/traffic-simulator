@@ -59,6 +59,8 @@ public:
 	bool isLastLocalRoute() { return flagLastLocalRoute;}
 	void setLastLocalRoute(){	flagLastLocalRoute = true;	}
 
+	bool isSpecificLinkInRoute(string linkid);
+
 
 	// @brief: given global route and the local offset, build localRoute
 	// @return: success or failure to build local route

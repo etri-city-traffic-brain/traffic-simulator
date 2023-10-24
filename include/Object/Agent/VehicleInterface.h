@@ -131,6 +131,8 @@ public:
 
     tuple<float,float> computeWaiting(SALTTime curStep);
 
+    bool isSpecificLinkInMyRoute(ID linkid);
+
 protected:
 	//	(constant) fixed values during simulation
 	//public:
