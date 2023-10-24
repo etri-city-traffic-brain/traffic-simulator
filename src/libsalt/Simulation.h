@@ -21,7 +21,7 @@ namespace libsalt {
     class Simulation {
     public:
         /// @brief load a simulation with the given arguments
-        static void load(std::string argv);
+        static void load(std::string argv, std::string outdir_prefix);
 
         /// @brief return whether a simulation (network) is present
         static bool isLoaded();
@@ -43,6 +43,8 @@ namespace libsalt {
 
         static SALT::TrafficSignalManager* getTrafficSignalManager();
 
+        static void printVehicleStatus();
+
     private:
 
         static SALT::SimulationController* SC;
@@ -51,8 +53,11 @@ namespace libsalt {
         static Clock::time_point timeEnd;
         static std::string scenarioFile;
         static std::string partitionID;
+        static std::string outdirPrefix;
 
         static void render();
+        static void _load(std::string argv);
+        static void _load(std::string argv, std::string outdir_prefix);
 
         /// @brief invalidated standard constructor
         Simulation() = delete;

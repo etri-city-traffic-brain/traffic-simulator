@@ -42,6 +42,16 @@ namespace libsalt {
     }
 
 
+    std::vector<std::string> TrafficSignal::getTLSConnectedLinkIDsCheckExceptable(std::string _tlsID) {
+        return getTLSManager()->getOPTTrafficSignalConnectedLinkIDsCheckExceptable(_tlsID);
+    }
+
+
+    std::vector<std::string> TrafficSignal::getTLSConnectedLinkIDsCheckExceptableWTOMultiConnection(std::string _tlsID) {
+        return getTLSManager()->getOPTTrafficSignalConnectedLinkIDsCheckExceptableWTOMultiConnection(_tlsID);
+    }
+
+
     std::vector<std::string> libsalt::TrafficSignal::getTLSScheduleIDsByNodeID(std::string _tlsID) {
         return getTLSManager()->getOPTTrafficSignalScheduleIDs(_tlsID);
     }
@@ -136,6 +146,12 @@ namespace libsalt {
         getTLSManager()->changeTLPhase(_triggertime, _nodeID, _scheduleID, _phaseIndex);
     }
 
+
+    void TrafficSignal::changeTLSPhaseVectorInStepwise(int triggertime, std::string _nodeID, std::string _scheduleID,
+                                                       std::vector<std::pair<int, std::string>> _phaseVector) {
+        getTLSManager()->changeTLSPhaseVectorInStepwise(triggertime, _nodeID, _scheduleID, _phaseVector);
+    }
+
     std::map<std::string, int> libsalt::TrafficSignal::_transformTODPlan(libsalt::TLSLogic *_logic) {
         std::map<std::string, int> transTODP;
         for (auto & tod : _logic->myTODPlan){
@@ -143,6 +159,7 @@ namespace libsalt {
         }
         return transTODP;
     }
+
 
 
 

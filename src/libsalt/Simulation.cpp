@@ -18,6 +18,7 @@ namespace libsalt {
     Clock::time_point Simulation::timeEnd;
     std::string Simulation::scenarioFile;
     std::string Simulation::partitionID;
+    std::string Simulation::outdirPrefix;
 
     SALT::SimulationController* Simulation::SC = nullptr;
     VisClient* VC = nullptr;
@@ -25,24 +26,11 @@ namespace libsalt {
     // ===========================================================================
     // static member definitions
     // ===========================================================================
-    void
-    Simulation::load(std::string argv) {
 
-        if (argv == "") {
-            std::cerr << "--- Error: Scenario File Not Specified ---" << std::endl;
-            return;
-        } else {
-            scenarioFile = argv;
-            std::cout << "scenarioFile: " << scenarioFile << std::endl;
-        }
-
-        std::cout << "[SALT Simulator 2.0] " << std::endl;
-        std::cout << "--- Scenario File: " << scenarioFile << std::endl;
-
+    void Simulation::_load(std::string argv, std::string outdir_prefix) {
         // Create simulation controller
         SC = new SALT::SimulationController();
-
-        SALT::Result configResult = SC->configureSimulation(scenarioFile);
+        SALT::Result configResult = SC->configureSimulationWithOutDirPrefix(scenarioFile,outdirPrefix);
         if (configResult == SALT::FAILURE) {
             std::cerr << "--- Error: Configuration Failed ---" << std::endl;
             return;
@@ -51,10 +39,10 @@ namespace libsalt {
 
         SC->printSimulationSetting();
 
-// #define RENDER
-#ifdef RENDER
-            render()
-#endif
+        // #define RENDER
+        #ifdef RENDER
+        render()
+        #endif
 
         // ===========================================
         // Start TCP server
@@ -73,6 +61,60 @@ namespace libsalt {
         timeStart = Clock::now();
         std::cout << "[Simulation Start]" << std::endl;
         SC->assertReady();
+    }
+
+    void Simulation::_load(std::string argv) {
+        // Create simulation controller
+        SC = new SALT::SimulationController();
+        SALT::Result configResult = SC->configureSimulation(scenarioFile);
+        if (configResult == SALT::FAILURE) {
+            std::cerr << "--- Error: Configuration Failed ---" << std::endl;
+            return;
+        }
+
+        cout << "--- Configuration Done ---" << endl;
+
+        SC->printSimulationSetting();
+
+        // #define RENDER
+        #ifdef RENDER
+        render()
+        #endif
+
+        // ===========================================
+        // Start TCP server
+        // master's host and port
+        string host = SC->getScenarioInfo()->simhost;
+        int port = SC->getScenarioInfo()->simport;
+        int interval = SC->getScenarioInfo()->siminterval;
+        if (port != 0) {
+            VC = new VisClient(SC, host, port);
+            VC->interval = interval;
+            VC->start();
+        }
+        // ===========================================
+
+        // Run simulation
+        timeStart = Clock::now();
+        std::cout << "[Simulation Start]" << std::endl;
+        SC->assertReady();
+    }
+
+    void Simulation::load(std::string argv, std::string outdir_prefix) {
+        if (argv == "") {
+            std::cerr << "--- Error: Scenario File Not Specified ---" << std::endl;
+            return;
+        } else if (outdir_prefix == ""){
+            scenarioFile = argv;
+            std::cout << "scenarioFile: " << scenarioFile << std::endl;
+            _load(scenarioFile);
+        } else {
+            scenarioFile = argv;
+            outdirPrefix = outdir_prefix;
+            std::cout << "scenarioFile: " << scenarioFile << std::endl;
+            std::cout << "Customized SimName: " << outdirPrefix << std::endl;
+            _load(scenarioFile, outdir_prefix);
+        }
     }
 
     void
@@ -244,6 +286,12 @@ namespace libsalt {
     Simulation::getTrafficSignalManager() {
         return SC->myTrafficSignalManager;
     }
+
+    void Simulation::printVehicleStatus() {
+        SC->myVehicleManager->print();
+        //SC->myVehicleManager->printStatus(SALT::MICRO);
+    }
+
 
 } // end of namespace libsalt
 
