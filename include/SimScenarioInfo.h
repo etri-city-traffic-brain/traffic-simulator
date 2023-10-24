@@ -10,6 +10,7 @@
 #include <tuple>
 #include <list>
 #include <comm/CmdMessage.hpp>
+#include <utility>
 
 namespace SALT{
 
@@ -20,6 +21,8 @@ public:
     explicit SimScenarioInfo(string scenariofile); 
     explicit SimScenarioInfo(string scenariofile, string subSimID); // sub simulation in distributed mode
     virtual ~SimScenarioInfo();
+
+    void setOutDirPrefix(string outdirPrefix);
 
     //Simulation ID
     string simid;
